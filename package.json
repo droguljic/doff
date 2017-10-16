@@ -14,23 +14,25 @@
   ],
   "main": "lib/index.js",
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=6.4.0"
   },
   "devDependencies": {
-    "chai": "^4.1.1",
-    "eslint": "^4.4.1",
-    "eslint-config-airbnb-base": "^11.3.1",
+    "chai": "^4.1.2",
+    "eslint": "^4.8.0",
     "eslint-config-semistandard": "^11.0.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-node": "^5.2.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "istanbul": "^0.4.5",
-    "mocha": "^3.5.0"
+    "mocha": "^4.0.1",
+    "rewire": "^2.5.2",
+    "sinon": "^4.0.1",
+    "type-detect": "^4.0.3"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "istanbul cover --include-all-sources --config ./config/test/istanbul.yml _mocha -- --opts ./config/test/mocha.opts"
   },
   "author": "Daniel Roguljic <droguljic@protonmail.com>",
   "license": "Apache-2.0"
