@@ -10,7 +10,7 @@ module.exports = {
     'no-console': 'warn',
     'global-require': 'error',
     'max-len': ['error', 120, 2, { ignoreComments: false }],
-    'generator-star-spacing': ['error', { before: false, after: false }],
+    'generator-star-spacing': ['error', { before: false, after: true }],
     'space-before-function-paren': ['error', 'never']
   }
 };
