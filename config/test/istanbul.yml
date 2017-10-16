@@ -1,0 +1,8 @@
+verbose: false
+instrumentation:
+    root: './lib'
+reporting:
+    print: summary
+    reports:
+        - lcov
+    dir: ./coverage
