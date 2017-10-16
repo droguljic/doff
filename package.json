@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "codacy-coverage": "^2.0.3",
     "eslint": "^4.8.0",
     "eslint-config-semistandard": "^11.0.0",
     "eslint-config-standard": "^10.2.1",
@@ -38,7 +39,8 @@
     "type-detect": "^4.0.3"
   },
   "scripts": {
-    "test": "istanbul cover --include-all-sources --config ./config/test/istanbul.yml _mocha -- --opts ./config/test/mocha.opts"
+    "test": "istanbul cover --include-all-sources --config ./config/test/istanbul.yml _mocha -- --opts ./config/test/mocha.opts",
+    "coverage": "npm test && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage"
   },
   "author": "Daniel Roguljic <droguljic@protonmail.com>"
 }
