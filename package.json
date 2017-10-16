@@ -1,7 +1,7 @@
 {
   "name": "doff",
   "version": "0.1.0",
-  "description": "Powerful tool to free your objects / arrays from unwanted content",
+  "description": "A powerful tool to free your objects / arrays from unwanted content",
   "keywords": [
     "object",
     "array",
@@ -10,8 +10,14 @@
     "strip",
     "omit",
     "peel",
-    "pull"
+    "pull",
+    "doff"
   ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/droguljic/doff.git"
+  },
   "main": "lib/index.js",
   "engines": {
     "node": ">=6.4.0"
@@ -34,6 +40,5 @@
   "scripts": {
     "test": "istanbul cover --include-all-sources --config ./config/test/istanbul.yml _mocha -- --opts ./config/test/mocha.opts"
   },
-  "author": "Daniel Roguljic <droguljic@protonmail.com>",
-  "license": "Apache-2.0"
+  "author": "Daniel Roguljic <droguljic@protonmail.com>"
 }
