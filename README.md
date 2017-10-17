@@ -1,18 +1,53 @@
-# doff
+## doff
 
 A powerful tool to free your objects / arrays from the unwanted content
 
-# Installing
+## Instalation
 
 ```
 npm install --save doff
 ```
 
-# Example
+## Features
+- wipe, i.e. remove, unwanted content
+- blur, i.e. mask, sensitive content
+- mutate or accumulate a target
+- choose start or end depth
+- symbol keys support
+- no external dependencies
+
+## Instances
+
+Alongside the default instance
 
 ```
 const doff = require('doff');
+```
 
+you can also create a custom instance by providing the options
+
+```
+// Options for the new instance are result of merge between provided and default options
+const instance = doff.create({ mutate: true, symbols: true });
+```
+
+if needed, you can overwrite the options of the default instance
+
+```
+// Only provided keys are overwritten
+doff.use({ symbols: true, falltrough: true, blur: { paths: 'top.secret.path' } });
+```
+
+### Notice
+
+Overwriting the options of the default instance won't affect an instances created before, but it will affect
+an instances created later on, if options are not isolated.
+
+##  Usage
+
+Working with the instance options
+
+```
 const target = {
   some: 'value',
   state: false,
@@ -20,62 +55,115 @@ const target = {
   nest: {
     nothing: null
   },
-  sequence: [17, 'is', '', undefined, {}]
+  sequence: [17, 'is', '', undefined, {}],
   unique: new Set(),
   pattern: /[how]_[does]_[this]_[work]/
 };
 
 const output = doff(target);
 
+console.log(target === output);
+// => false
 console.log(output);
-
-// => {
-//    some: 'value',
-//    state: false,
-//    big: 0,
-//    sequence: [17, 'is'],
-//    pattern: /[how]_[does]_[this]_[work]/
-//  }
+/* =>
+{
+  some: 'value',
+  state: false,
+  big: 0,
+  sequence: [17, 'is'],
+  pattern: /[how]_[does]_[this]_[work]/
+}
+ */
 ```
 
-# Usage
-
-There are several ways to use the `doff`
-
-## Default
-
-Most straightforward way is to use the default instance
+Working with the provided options
 
 ```
-const doff = require('doff');
+const target = [
+  'bold statement',
+  NaN,
+  true,
+  {
+    now: {
+      lets: {
+        nest: {
+          things: undefined
+        }
+      }
+    }
+  },
+  null,
+  new Set(),
+  ['', {}, [null]]
+];
+
+doff(target, { mutate: true, depth: 2 });
+
+console.log(target);
+/* =>
+[
+  'bold statement',
+  true,
+  {
+    now: {
+      lets: {
+        nest: {
+          things: undefined
+        }
+      }
+    }
+  },
+  [[null]]
+]
+ */
 ```
 
-## Create an instance
-
-You can also create an instance with the custom options and reuse it across the application
+Working with the isolated options
 
 ```
-const doff = require('doff');
-const instance = doff.create({ mutate: true, symbols: true });
+const target = {
+  start: undefined,
+  with: true,
+  empty: {},
+  or: '',
+  simple: { [Symbol('key')]: 17 },
+  pattern: /[0-9]/
+};
+
+// Using instance with the isolated options
+const instance = doff.create({ isolate: true });
+let output = instance(target);
+
+// Is equivalent of providing the isolated options
+output = doff(target, { isolate: true });
+
+console.log(target === output);
+// => false
+console.log(target.empty === output.empty);
+// => true
+console.log(target.simple === output.simple);
+// => true
+console.log(output);
+/* =>
+{
+  start: undefined,
+  with: true,
+  empty: {},
+  or: '',
+  simple: { [Symbol('key')]: 17 },
+  pattern: /[0-9]/
+}
+ */
 ```
 
-## Overwrite the default
+and not providing the `wipe` and `blur` keys, will output an accumulator which is a clone of the target. However, not
+all values will be cloned, just ones with type `object` that have enumerable keys, `symbol` keys are dependent on
+`symbols` option.<br>
+Providing isolated options to the `doff.use` is the same as providing non-isolated options.
 
-If needed, you can overwrite the options of the default instance
+## Options
 
-```
-const doff = require('doff');
-doff.use({ depth: 2, falltrough: true });
-```
-
-### Notice
-
-Overwriting the options of the default instance won't affect previously created instances, but it will affect
-an instances created later on, if options are not isolated.
-
-# Options
-
-This is the list of available options for creating the instances or doffing.
+The list of available options for creating the instances or doffing.
 
 - `isolate` - flag denoting how provided options will be used, when `true` options are used as is, otherwise
 merged with the options of the default instance
@@ -122,28 +210,7 @@ takes precedence over the `wipe`
     * `function` - with signature `(value, path, target)`, returning a mask to use
   - `mask` - the default mask to use for blurring
 
-## Path
-
-Parameter `path` passed to the `wipe` and `blur.paths` options in a case of a function is a object with the `asString`
-and `asArray` properties. Take for a example following target,
-
-```
-  const target = {
-    start: [{
-      [Symbol('of')]: 'something'
-    }]
-  };
-```
-
-`path` passed to the function in a case of `'a something'` value, would look like
-```
-{
-  asString: 'start[0].@@of'
-  asArray: ['start', 0, Symbol('of')]
-}
-```
-
-## Defaults
+### Defaults
 
 Default values of available options, i.e. options of the default instance
 
@@ -169,7 +236,44 @@ Default values of available options, i.e. options of the default instance
 }
 ```
 
-# API
+## Callback
+
+As mentioned above callback provided as `wipe` and / or `blur.paths` options should look like
+
+```
+/**
+ * @param {Object} value - the value to inspect
+ * @param {Object} path - the path of the value inside the target
+ * @param {Object} target - the provided target
+ */
+function (value, path, target) {
+  // Hm, what to do now?
+}
+```
+
+### Path
+
+Parameter `path` passed to the callback is a object containing `asString`
+and `asArray` properties. Take for a example following target,
+
+```
+  const target = {
+    start: [{
+      [Symbol('of')]: 'something'
+    }]
+  };
+```
+
+`path` passed to the function in a case of `'a something'` value, would look like
+```
+{
+  asString: 'start[0].@@of'
+  asArray: ['start', 0, Symbol('of')]
+}
+```
+
+
+## API
 
 ### `doff(target[, options])`
 
@@ -178,16 +282,16 @@ Doff the unwanted entries and return the result.
 ### `doff.use(options)`
 
 <b>Available only on the default instance!</b><br>
-Overwrite options of the default instance with provided ones and return the default instance.
+Overwrite the options of the default instance with provided ones and return the default instance.
 
 ### `doff.create(options)`
 
 <b>Available only on the default instance!</b><br>
-Create the new instance with provided options.
+Create the new instance using a provided options.
 
 ### `doff.getOptions()`
 
-Return the options of target instance.
+Return the options of a target instance.
 
 ### `doff.aim(target[, options])`
 
