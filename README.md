@@ -1,5 +1,9 @@
 ## doff
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d097053c5033422ea90a0f44829dbfd8)](https://www.codacy.com/app/droguljic/doff?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=droguljic/doff&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d097053c5033422ea90a0f44829dbfd8)](https://www.codacy.com/app/droguljic/doff?utm_source=github.com&utm_medium=referral&utm_content=droguljic/doff&utm_campaign=Badge_Coverage)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+
 A powerful tool to free your objects / arrays from the unwanted content
 
 ## Instalation
