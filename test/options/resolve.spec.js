@@ -1,12 +1,15 @@
 // Load modules
 
 const expect = require('chai').expect;
+const rewire = require('rewire');
 
-const resolve = require('../../lib/options/resolve');
+const resolve = rewire('../../lib/options/resolve');
 
 // Internal logic
 
-const instructions = {
+const defaults = resolve.__get__('DEFAULT_INSTRUCTIONS');
+
+const options = {
   isolate: false,
   original: false,
   depth: 0,
@@ -30,27 +33,38 @@ const instructions = {
 // Describe test cases
 
 describe('options/resolve', () => {
-  it('Should resolve instructions correctly', () => {
-    const options = resolve(instructions);
-    expect(options).to.have.own.property('isolate', instructions.isolate);
-    expect(options).to.have.own.property('original', instructions.original);
-    expect(options).to.have.own.property('depth', instructions.depth);
-    expect(options).to.have.own.property('fallthrough', instructions.fallthrough);
-    expect(options).to.have.own.property('preserve').and.to.be.a('function');
-    expect(options).to.have.own.property('reference', instructions.reference);
-    expect(options).to.have.own.property('wipe').and.to.be.a('function');
-    expect(options).to.have.own.property('blur').and.to.be.a('function');
+  it('Should resolve options', () => {
+    const instructions = resolve(options);
+    expect(instructions).to.have.own.property('isolate', options.isolate);
+    expect(instructions).to.have.own.property('original', options.original);
+    expect(instructions).to.have.own.property('depth', options.depth);
+    expect(instructions).to.have.own.property('fallthrough', options.fallthrough);
+    expect(instructions).to.have.own.property('preserve').and.to.be.a('function');
+    expect(instructions).to.have.own.property('reference', options.reference);
+    expect(instructions).to.have.own.property('wipe').and.to.be.a('function');
+    expect(instructions).to.have.own.property('blur').and.to.be.a('function');
   });
 
-  it('Should resolve unsupported instructions as empty object', () => {
-    expect(resolve(undefined)).to.be.empty.and.to.be.an('object');
-    expect(resolve(null)).to.be.empty.and.to.be.an('object');
-    expect(resolve(19)).to.be.empty.and.to.be.an('object');
-    expect(resolve('correct')).to.be.empty.and.to.be.an('object');
-    expect(resolve([])).to.be.empty.and.to.be.an('object');
-    expect(resolve(new Map())).to.be.empty.and.to.be.an('object');
-    expect(resolve(new Set())).to.be.empty.and.to.be.an('object');
-    expect(resolve(new Date())).to.be.empty.and.to.be.an('object');
-    expect(resolve(() => {})).to.be.empty.and.to.be.an('object');
+  it('Should resolve missing wipe or blur using defaults', () => {
+    expect(resolve({ wipe: true })).to.have.keys('wipe', 'blur').and.to.have.own.property('blur', defaults.blur);
+    const blur = { paths: 'blurry.thing', mask: '|||||||||' };
+    expect(resolve({ blur })).to.have.keys('wipe', 'blur').and.to.have.own.property('wipe', defaults.wipe);
+  });
+
+  it('Should resolve empty options using defaults', () => {
+    expect(resolve({})).to.deep.equal(defaults);
+    expect(resolve({ isolate: true })).to.deep.equal(Object.assign({ isolate: true }, defaults));
+  });
+
+  it('Should resolve non-options using defaults', () => {
+    expect(resolve(undefined)).to.equal(defaults);
+    expect(resolve(null)).to.equal(defaults);
+    expect(resolve(19)).to.equal(defaults);
+    expect(resolve('correct')).to.equal(defaults);
+    expect(resolve([])).to.equal(defaults);
+    expect(resolve(new Map())).to.equal(defaults);
+    expect(resolve(new Set())).to.equal(defaults);
+    expect(resolve(new Date())).to.equal(defaults);
+    expect(resolve(() => {})).to.equal(defaults);
   });
 });
