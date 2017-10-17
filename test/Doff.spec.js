@@ -39,7 +39,7 @@ describe('Doff', () => {
     expect(resolveSpy.args[0][0]).to.deep.equal({ isolate: true });
   });
 
-  it('Should process the target object', () => {
+  it('Should process the target', () => {
     const object = {
       hey: 'do not remove this',
       but: { you: { can: { remove: { [Symbol('that')]: null } } } },
@@ -56,6 +56,37 @@ describe('Doff', () => {
       big: { number: 0 },
       sequence: [17, { good: 'job' }]
     });
+  });
+
+  it('Should accumulate the target when provided options are empty', () => {
+    const array = [
+      17,
+      false,
+      undefined,
+      {
+        go: {
+          to: {
+            the: {
+              end: undefined
+            }
+          }
+        }
+      },
+      new Date(),
+      {
+        plain: null,
+        simple: NaN
+      },
+      new Set(['lets', 11, true])
+    ];
+
+    const output = new Doff().aim(array, { isolate: true });
+    expect(output).to.not.equal(array);
+    expect(output[3]).to.not.equal(array[3]);
+    expect(output[4]).to.equal(array[4]);
+    expect(output[5]).to.not.equal(array[5]);
+    expect(output[6]).to.equal(array[6]);
+    expect(output).to.deep.equal(array);
   });
 
   it('Should respect the mutate option', () => {
