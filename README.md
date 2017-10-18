@@ -1,11 +1,13 @@
 ## doff
 
-[![Build Status](https://travis-ci.org/droguljic/doff.svg?branch=master)](https://travis-ci.org/droguljic/doff)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d097053c5033422ea90a0f44829dbfd8)](https://www.codacy.com/app/droguljic/doff?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=droguljic/doff&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d097053c5033422ea90a0f44829dbfd8)](https://www.codacy.com/app/droguljic/doff?utm_source=github.com&utm_medium=referral&utm_content=droguljic/doff&utm_campaign=Badge_Coverage)
-[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+[![npm version](https://img.shields.io/npm/v/doff.svg?style=flat-square)](https://www.npmjs.org/package/doff)
+[![build status](https://img.shields.io/travis/droguljic/doff.svg?style=flat-square)](https://travis-ci.org/droguljic/doff)
+[![code quality](https://img.shields.io/codacy/grade/d097053c5033422ea90a0f44829dbfd8.svg?style=flat-square&label=codacy)](https://www.codacy.com/app/droguljic/doff?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=droguljic/doff&amp;utm_campaign=Badge_Grade)
+[![code coverage](https://img.shields.io/codacy/coverage/d097053c5033422ea90a0f44829dbfd8.svg?style=flat-square)](https://www.codacy.com/app/droguljic/doff?utm_source=github.com&utm_medium=referral&utm_content=droguljic/doff&utm_campaign=Badge_Coverage)
+[![dependencies](https://img.shields.io/david/droguljic/doff.svg?style=flat-square)](https://github.com/droguljic/doff)
+[![development dependencies](https://img.shields.io/david/dev/droguljic/doff.svg?style=flat-square)](https://github.com/droguljic/doff)
 
-A powerful tool to free your objects / arrays from the unwanted content
+A powerful tool to free your objects and arrays from unwanted content
 
 ## Instalation
 
@@ -29,28 +31,37 @@ Alongside the default instance
 const doff = require('doff');
 ```
 
-you can also create a custom instance by providing the options
+you can also create a new instance with custom options
 
 ```
-// Options for the new instance are result of merge between provided and default options
-const instance = doff.create({ mutate: true, symbols: true });
+// Options for a new instance are result of merge between provided and default options
+const instance = doff.create({
+  mutate: true,
+  symbols: true
+});
 ```
 
-if needed, you can overwrite the options of the default instance
+if needed, you can overwrite options of the default instance
 
 ```
 // Only provided keys are overwritten
-doff.use({ symbols: true, falltrough: true, blur: { paths: 'top.secret.path' } });
+doff.use({
+  symbols: true,
+  falltrough: true,
+  blur: {
+    paths: 'top.secret.path'
+  }
+});
 ```
 
 ### Notice
 
-Overwriting the options of the default instance won't affect an instances created before, but it will affect
-an instances created later on, if options are not isolated.
+Overwriting options of the default instance won't affect instances created before, but it will affect
+instances created later on, if options are not isolated.
 
 ##  Usage
 
-Working with the instance options
+Working with instance options
 
 ```
 const target = {
@@ -81,7 +92,7 @@ console.log(output);
  */
 ```
 
-Working with the provided options
+Working with custom options
 
 ```
 const target = [
@@ -102,7 +113,10 @@ const target = [
   ['', {}, [null]]
 ];
 
-doff(target, { mutate: true, depth: 2 });
+doff(target, {
+  mutate: true,
+  depth: 2
+});
 
 console.log(target);
 /* =>
@@ -123,7 +137,7 @@ console.log(target);
  */
 ```
 
-Working with the isolated options
+Working with isolated options
 
 ```
 const target = {
@@ -131,16 +145,22 @@ const target = {
   with: true,
   empty: {},
   or: '',
-  simple: { [Symbol('key')]: 17 },
+  simple: {
+    [Symbol('key')]: 17
+  },
   pattern: /[0-9]/
 };
 
-// Using instance with the isolated options
-const instance = doff.create({ isolate: true });
+// Using a instance with isolated options
+const instance = doff.create({
+  isolate: true
+});
 let output = instance(target);
 
-// Is equivalent of providing the isolated options
-output = doff(target, { isolate: true });
+// Is equivalent of providing isolated options
+output = doff(target, {
+  isolate: true
+});
 
 console.log(target === output);
 // => false
@@ -155,48 +175,50 @@ console.log(output);
   with: true,
   empty: {},
   or: '',
-  simple: { [Symbol('key')]: 17 },
-  pattern: /[0-9]/
+  simple: {
+    [Symbol('key')]: 17
+  },
+  pattern: /[1-9]/
 }
  */
 ```
 
-and not providing the `wipe` and `blur` keys, will output an accumulator which is a clone of the target. However, not
-all values will be cloned, just ones with type `object` that have enumerable keys, `symbol` keys are dependent on
+and not providing `wipe` and `blur` keys, will output an accumulator which is a clone of a target. However, not
+all values will be cloned, just ones with a type `object` that have enumerable keys, `symbol` keys are dependent on a
 `symbols` option.<br>
 Providing isolated options to the `doff.use` is the same as providing non-isolated options.
 
 ## Options
 
-The list of available options for creating the instances or doffing.
+The list of available options for doffing
 
-- `isolate` - flag denoting how provided options will be used, when `true` options are used as is, otherwise
-merged with the options of the default instance
-- `mutate` - flag denoting what to do with the provided target, when `true` target is mutated, otherwise
-new one, with the same prototype, is constructed
-- `depth` - define how deep to go, accepts
+- `isolate` - determines how provided options are used, when `true` options are used as is, otherwise
+merged with options of the default instance
+- `mutate` - determines what to do with a provided target, when `true` a target is mutated, otherwise a
+new one, with a same prototype, is constructed
+- `depth` - defines how deep to go, accepts
   - `number 0` - go all the way
-  - `number > 0` - go up to the provided depth
-  - `number < 0` - start from the provided depth
-- `symbols` - flag denoting which keys to take into consideration, when `true` symbol keys are also taken
+  - `number > 0` - go up to the defined depth
+  - `number < 0` - start from the defined depth
+- `symbols` - determines which keys are taken into consideration, when `true` symbol keys are also taken
 into consideration, otherwise they are ignored
-- `fallthrough` - flag denoting what to do with the kept entries, when `true` they will reach the `wipe`,
+- `fallthrough` - determines what to do with kept entries, when `true` they will reach the `wipe`,
 otherwise they won't
-- `preserve` - preserve takes precedence over the `reference` and the `wipe`
-  - `arrays` - flag denoting what to do with the arrays, when `true` array values will stay intact,
+- `preserve` - takes precedence over the `reference` and the `wipe`
+  - `arrays` - determines what to do with arrays, when `true` array values will stay intact,
   otherwise they will be inspected
-  - `objects` - flag denoting what to do with the objects, when `true` object values will stay intact,
+  - `objects` - determines what to do with objects, when `true` object values will stay intact,
   otherwise they will be inspected
-  - `paths` - the paths to keep, accepts
-    * `string` reflecting the single path to keep, e.g. `some.important[0].path`
-    * `Array.<string>` reflecting the paths to keep, e.g. `[some.important[0].path, this.one.also]`
-  - `types` - the types to keep, accepts
-    * `string` reflecting the single type to keep, e.g. `[object Map]`
-    * `function` reflecting the single type to keep, e.g. `Set`, evaluated using `instanceof`
-    * `Array.<string|function>` the combination of previous two
-- `reference` - object to take as a reference, i.e. if object has a path keep it, otherwise inspect,
+  - `paths` - defines paths to keep, accepts
+    * `string` - a single path to keep, e.g. `some.important[0].path`
+    * `Array.<string>` - a list of paths to keep, e.g. `[some.important[0].path, this.one.also]`
+  - `types` - defines types to keep, accepts
+    * `string` - a single type to keep, e.g. `[object Map]`
+    * `function` - a single type to keep, e.g. `Set`, evaluated using `instanceof`
+    * `Array.<string|function>` - a combination of previous two
+- `reference` - an object to take as the reference, i.e. if an object has a path keep it, otherwise inspect,
 takes precedence over the `wipe`
-- `wipe` - values to wipe from the target, accepts
+- `wipe` - values to wipe from a target, accepts
   - `string falsy.relaxed` - falsy values excluding, `false` and `0`
   - `string falsy.strict` - falsy values
   - `string empty.loose` - falsy values, excluding `0` and `false`, objects without own keys,
@@ -206,13 +228,13 @@ takes precedence over the `wipe`
   - `string empty.strict`, alias `true` - falsy values, objects without own `string` enumerable keys,
   arrays and likes with length of `0`, maps and sets with size of `0`
   - `Array` - of values
-  - `function` - with signature `(value, path, target)`, returning `true` for wiping and `false` otherwise
-- `blur` - paths that are not wiped can be blurred, e.g. masked. Suitable for sensitive data, e.g. passwords
-  - `paths` - to blur, i.e. replace with mask values, accepts
-    * `string` - reflecting a single path to blur using value of the `mask` key
+  - `function` - with the signature `(value, path, target)`, returning `true` for wiping or `false` otherwise
+- `blur` - paths that are not wiped can be blurred, e.g. masked. Suitable for a sensitive data, e.g. passwords
+  - `paths` - to blur, i.e. replace with a mask value, accepts
+    * `string` - a single path to blur using value of the `mask` key
     * `object` - where key is a path to blur and value is a mask to use
-    * `Array.<string|object>` - the combination of previous two
-    * `function` - with signature `(value, path, target)`, returning a mask to use
+    * `Array.<string|object>` - a combination of previous two
+    * `function` - with the signature `(value, path, target)`, returning a mask to use
   - `mask` - the default mask to use for blurring
 
 ### Defaults
@@ -258,8 +280,8 @@ function (value, path, target) {
 
 ### Path
 
-Parameter `path` passed to the callback is a object containing `asString`
-and `asArray` properties. Take for a example following target,
+Parameter `path` passed to a callback is an object containing `asString` and `asArray` properties.
+Take for a example the following target,
 
 ```
   const target = {
@@ -269,7 +291,7 @@ and `asArray` properties. Take for a example following target,
   };
 ```
 
-`path` passed to the function in a case of `'a something'` value, would look like
+`path` passed to a callback in a case of the `'something'` value, would look like
 ```
 {
   asString: 'start[0].@@of'
@@ -282,22 +304,26 @@ and `asArray` properties. Take for a example following target,
 
 ### `doff(target[, options])`
 
-Doff the unwanted entries and return the result.
+Doff unwanted entries and return the result.
 
 ### `doff.use(options)`
 
 <b>Available only on the default instance!</b><br>
-Overwrite the options of the default instance with provided ones and return the default instance.
+Overwrite options of the default instance with provided ones and return the default instance.
 
 ### `doff.create(options)`
 
 <b>Available only on the default instance!</b><br>
-Create the new instance using a provided options.
+Create a new instance using provided options.
 
 ### `doff.getOptions()`
 
-Return the options of a target instance.
+Return options of a target instance.
 
 ### `doff.aim(target[, options])`
 
 Alias for the `doff`.
+
+## License
+
+This project is licensed under the terms of the MIT license.
