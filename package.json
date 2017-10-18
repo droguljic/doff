@@ -1,7 +1,7 @@
 {
   "name": "doff",
   "version": "0.9.0",
-  "description": "A powerful tool to free your objects / arrays from unwanted content",
+  "description": "A powerful tool to free your objects and arrays from unwanted content",
   "keywords": [
     "object",
     "array",
@@ -25,12 +25,12 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "codacy-coverage": "^2.0.3",
-    "eslint": "^4.8.0",
+    "eslint": "^4.9.0",
     "eslint-config-semistandard": "^11.0.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-node": "^5.2.0",
-    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^4.0.1",
