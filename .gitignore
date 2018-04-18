@@ -7,3 +7,4 @@ pids
 *.pid
 *.seed
 .project
+.nyc_output

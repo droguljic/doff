@@ -32,15 +32,15 @@
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.7.0",
     "eslint-plugin-standard": "^3.0.1",
-    "istanbul": "^0.4.5",
     "mocha": "^5.1.0",
+    "nyc": "^11.6.0",
     "rewire": "^4.0.0",
     "sinon": "^4.5.0",
     "type-detect": "^4.0.8"
   },
   "scripts": {
-    "test": "istanbul cover --include-all-sources --config ./config/test/istanbul.yml _mocha -- --opts ./config/test/mocha.opts",
-    "coverage": "npm test && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage"
+    "test": "mocha --opts ./config/test/mocha.opts",
+    "coverage": "nyc --nycrc-path ./config/test/nyc.json npm test"
   },
   "author": "Daniel Roguljic <droguljic@protonmail.com>"
 }
