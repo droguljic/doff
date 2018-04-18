@@ -27,7 +27,7 @@ const target = {
 // Describe test cases
 
 describe('util/clone', () => {
-  it('Should clone provided value', () => {
+  it('Clones provided value', () => {
     const output = clone(target);
     expect(output).to.not.equal(target);
     expect(output).to.deep.equal(target);

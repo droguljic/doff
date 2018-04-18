@@ -19,25 +19,25 @@ const target = {
 // Describe test cases
 
 describe('options/preserve', () => {
-  it('Should preserve arrays', () => {
+  it('Preserves arrays', () => {
     const path = new LocalPath().append('yes');
     const options = { arrays: true };
     expect(preserve(get(target, path), path, options)).to.equal(true);
   });
 
-  it('Should preserve objects', () => {
+  it('Preserves objects', () => {
     const path = new LocalPath().append('is').append('also');
     const options = { objects: true };
     expect(preserve(get(target, path), path, options)).to.equal(true);
   });
 
-  it('Should preserve paths', () => {
+  it('Preserves paths', () => {
     const path = new LocalPath().append('a');
     const options = { paths: ['a'] };
     expect(preserve(get(target, path), path, options)).to.equal(true);
   });
 
-  it('Should preserve types', () => {
+  it('Preserves types', () => {
     const path = new LocalPath().append('interesting').append('word');
     const options = { types: [Set] };
     expect(preserve(get(target, path), path, options)).to.equal(true);
@@ -50,7 +50,7 @@ describe('options/preserve', () => {
     beforeEach(() => (preserveSpy = spy(preserve, 'preserve')));
     afterEach(() => preserveSpy.restore());
 
-    it('Should resolve using single paths and types options', () => {
+    it('Resolves using single paths and types options', () => {
       const options = { arrays: true, objects: false, paths: 'is.also', types: Map };
       const resolved = preserve.resolve(options);
       expect(resolved).to.be.a('function').and.to.have.property('length', 2);
@@ -62,7 +62,7 @@ describe('options/preserve', () => {
       );
     });
 
-    it('Should resolve using array paths and types options', () => {
+    it('Resolves using array paths and types options', () => {
       const options = { arrays: false, objects: true, paths: ['is.also'], types: [Map] };
       const resolved = preserve.resolve(options);
       expect(resolved).to.be.a('function').and.to.have.property('length', 2);
@@ -72,7 +72,7 @@ describe('options/preserve', () => {
       expect(preserveSpy.args[0][2]).to.deep.equal(options);
     });
 
-    it('Should resolve using unsupported paths and types options', () => {
+    it('Resolves using unsupported paths and types options', () => {
       const options = { arrays: true, objects: true, paths: 17, types: null };
       const resolved = preserve.resolve(options);
       expect(resolved).to.be.a('function').and.to.have.property('length', 2);

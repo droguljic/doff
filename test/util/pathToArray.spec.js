@@ -8,7 +8,7 @@ const pathToArray = require('../../lib/util/pathToArray');
 // Describe test cases
 
 describe('util/pathToArray', () => {
-  it('Should convert string path to an array', () => {
+  it('Converts string path to an array', () => {
     const objectPath = 'start.of.the.awesome.path';
     const arrayPath = '[1][17][3][9][45]';
     const mixedPath = 'try.to[1].mix[7].this';
@@ -17,22 +17,22 @@ describe('util/pathToArray', () => {
     expect(pathToArray(mixedPath)).to.deep.equal(['try', 'to', '1', 'mix', '7', 'this']);
   });
 
-  it('Should convert symbol path to an array', () => {
+  it('Converts symbol path to an array', () => {
     const symbolPath = Symbol('path');
     expect(pathToArray(symbolPath)).to.deep.equal([symbolPath]);
   });
 
-  it('Should convert length path to an array', () => {
+  it('Converts length path to an array', () => {
     const lengthPath = 91;
     expect(pathToArray(lengthPath)).to.deep.equal([lengthPath]);
   });
 
-  it('Should return an asArray property if a path is the LocalPath', () => {
+  it('Returns an asArray property if a path is the `LocalPath`', () => {
     const path = new LocalPath().append('cool').append('path');
     expect(pathToArray(path)).to.equal(path.asArray);
   });
 
-  it('Should return empty array if argument is not a path', () => {
+  it('Returns empty array if argument is not a path', () => {
     /* eslint-disable no-unused-expressions */
     expect(pathToArray(undefined)).to.be.an('array').that.is.empty;
     expect(pathToArray(null)).to.be.an('array').that.is.empty;

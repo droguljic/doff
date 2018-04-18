@@ -7,7 +7,7 @@ const enumerableKeys = require('../../lib/util/enumerableKeys');
 // Describe test cases
 
 describe('util/enumerableKeys', () => {
-  it('Should return enumerable string keys', () => {
+  it('Returns enumerable string keys', () => {
     const object = {
       key: 'is',
       only: 'this',
@@ -17,7 +17,7 @@ describe('util/enumerableKeys', () => {
     expect(enumerableKeys(object)).to.deep.equal(['key', 'only']);
   });
 
-  it('Should return enumerable string and symbol keys', () => {
+  it('Returns enumerable string and symbol keys', () => {
     const symbol = Symbol('how');
     const object = {
       key: 'is',
@@ -28,7 +28,7 @@ describe('util/enumerableKeys', () => {
     expect(enumerableKeys(object, true)).to.deep.equal(['key', 'only', symbol]);
   });
 
-  it('Should return empty array for unsupported type', () => {
+  it('Returns empty array for unsupported type', () => {
     /* eslint-disable no-unused-expressions */
     expect(enumerableKeys(undefined)).to.be.an('array').that.is.empty;
     expect(enumerableKeys(null)).to.be.an('array').that.is.empty;

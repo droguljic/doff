@@ -7,7 +7,7 @@ const toString = require('../../lib/util/toString');
 // Describe test cases
 
 describe('util/toString', () => {
-  it('Should convert value to string', () => {
+  it('Converts value to string', () => {
     expect(toString(undefined)).to.equal('');
     expect(toString(null)).to.equal('');
     expect(toString(false)).to.equal('false');

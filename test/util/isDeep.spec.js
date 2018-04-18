@@ -11,7 +11,7 @@ const symbolObject = Object.defineProperty({}, Symbol('symbol'), { value: 'real'
 // Describe test cases
 
 describe('util/isDeep', () => {
-  it('Should identify deep values', () => {
+  it('Identifies deep values', () => {
     expect(isDeep([11])).to.equal(true);
     expect(isDeep(new Int8Array(7))).to.equal(true);
     expect(isDeep(new Uint8Array(7))).to.equal(true);
@@ -26,7 +26,7 @@ describe('util/isDeep', () => {
     expect(isDeep(symbolObject, true)).to.equal(true);
   });
 
-  it('Should identify non deep values', () => {
+  it('Identifies non deep values', () => {
     expect(isDeep(undefined)).to.equal(false);
     expect(isDeep(null)).to.equal(false);
     expect(isDeep(true)).to.equal(false);

@@ -7,19 +7,19 @@ const merge = require('../../lib/util/merge');
 // Describe test cases
 
 describe('util/merge', () => {
-  it('Should return target', () => {
+  it('Returns target', () => {
     const target = { how: 'this', will: 'turn', out: null };
     const output = merge(target, { how: 'that' });
     expect(target).to.equal(output);
   });
 
-  it('Should work with null sources', () => {
+  it('Works with `null` sources', () => {
     const target = { how: 'this', will: 'turn', out: null };
     merge(target, null, undefined);
     expect(target).to.deep.equal({ how: 'this', will: 'turn', out: null });
   });
 
-  it('Should merge shallow sources with target', () => {
+  it('Merges shallow sources with target', () => {
     const output = merge({
       some: 'key',
       yet: 'other',
@@ -43,7 +43,7 @@ describe('util/merge', () => {
     });
   });
 
-  it('Should merge deep sources with target', () => {
+  it('Merges deep sources with target', () => {
     const output = merge({
       now: 'let',
       see: { what: { will: { happen: '???' } } },
@@ -92,7 +92,7 @@ describe('util/merge', () => {
   });
 
   describe('util/merge.with', () => {
-    it('Should respect atomic keys', () => {
+    it('Respects atomic keys', () => {
       const target = { how: 'this', will: 'turn', out: null, when: { nested: { key: { is: 'present' } } } };
       merge
         .with({ atomic: { keys: ['when'] } })
@@ -100,7 +100,7 @@ describe('util/merge', () => {
       expect(target).to.deep.equal({ how: 'that', will: 'turn', out: null, when: { we: { overwrite: 'it' } } });
     });
 
-    it('Should ignore non-values', () => {
+    it('Ignores non-values', () => {
       const target = { now: 'try', ultra: 'cool', thing: 'with', non: 'values' };
       merge
         .with({ ignore: { nonValues: true } })

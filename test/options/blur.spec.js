@@ -38,19 +38,19 @@ const object = {
 // Describe test cases
 
 describe('options/blur', () => {
-  it('Should blur a single path using the default mask', () => {
+  it('Blurs a single path using the default mask', () => {
     const path = new LocalPath().append('top');
     const options = { paths: 'top', mask: '???' };
     expect(blur(get(object, path), path, object, options)).to.equal(options.mask);
   });
 
-  it('Should blur a single path using the provided mask', () => {
+  it('Blurs a single path using the provided mask', () => {
     const path = new LocalPath().append('sealed');
     const options = { paths: { sealed: '!!!' } };
     expect(blur(get(object, path), path, object, options)).to.equal(options.paths.sealed);
   });
 
-  it('Should blur an array of paths using the default and provided masks', () => {
+  it('Blurs an array of paths using the default and provided masks', () => {
     let path = new LocalPath().append('hide').append('me').append('very');
     const options = { paths: [{ 'hide.me.very': '***' }, 'extra.sensitive'], mask: ':::' };
     expect(blur(get(object, path), path, object, options)).to.equal(options.paths[0]['hide.me.very']);
@@ -59,13 +59,13 @@ describe('options/blur', () => {
     expect(blur(get(object, path), path, object, options)).to.equal(options.mask);
   });
 
-  it('Should blur a paths using the custom function', () => {
+  it('Blurs a paths using the custom function', () => {
     const path = new LocalPath().append('keep').append('it');
     const options = { paths: () => '___' };
     expect(blur(get(object, path), path, object, options)).to.equal(options.paths());
   });
 
-  it('Should ignore an unaffected paths', () => {
+  it('Ignores an unaffected paths', () => {
     let path = new LocalPath().append('open').append('to');
     let value = get(object, path);
     const options = { paths: ['top', 'hide.me.very'], mask: ',,,' };
@@ -76,7 +76,7 @@ describe('options/blur', () => {
     expect(blur(value, path, object, options)).to.equal(value);
   });
 
-  it('Should return the value if options are not provided', () => {
+  it('Returns the value if options are not provided', () => {
     const path = new LocalPath().append('extra').append('sensitive');
     const value = get(object, path);
     expect(blur(value, path, object)).to.equal(value);
@@ -87,7 +87,7 @@ describe('options/blur', () => {
     beforeEach(() => (blurSpy = spy(blur, 'blur')));
     afterEach(() => blurSpy.restore());
 
-    it('Should resolve using options', () => {
+    it('Resolves using options', () => {
       const value = undefined;
       const path = new LocalPath();
       const options = {};

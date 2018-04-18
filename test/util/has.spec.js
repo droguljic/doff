@@ -8,7 +8,7 @@ const LocalPath = require('../../lib/util/LocalPath');
 // Describe test cases
 
 describe('util/has', () => {
-  it('Should find object only path', () => {
+  it('Finds object only path', () => {
     const object = { a: { b: { c: { d: undefined } } } };
     expect(has(object, 'a')).to.equal(true);
     expect(has(object, 'a.b')).to.equal(true);
@@ -16,7 +16,7 @@ describe('util/has', () => {
     expect(has(object, 'a.b.c.d')).to.equal(true);
   });
 
-  it('Should find array only path', () => {
+  it('Finds array only path', () => {
     const array = [[[[[17, null]]]]];
     expect(has(array, '[0]')).to.equal(true);
     expect(has(array, '[0][0]')).to.equal(true);
@@ -26,7 +26,7 @@ describe('util/has', () => {
     expect(has(array, '[0][0][0][0][1]')).to.equal(true);
   });
 
-  it('Should find mixed path', () => {
+  it('Finds mixed path', () => {
     const object = { a: [{ b: { c: [{ d: 3 }] } }] };
     expect(has(object, 'a')).to.equal(true);
     expect(has(object, 'a[0]')).to.equal(true);
@@ -36,24 +36,24 @@ describe('util/has', () => {
     expect(has(object, 'a[0].b.c[0].d')).to.equal(true);
   });
 
-  it('Should find flatten path', () => {
+  it('Finds flatten path', () => {
     const object = { '[0].a[1].b.c[1][7].d': NaN };
     expect(has(object, '[0].a[1].b.c[1][7].d')).to.equal(true);
   });
 
-  it('Should find symbol path', () => {
+  it('Finds symbol path', () => {
     const symbol = Symbol('try');
     const object = { [symbol]: 'awesome' };
     expect(has(object, symbol)).to.equal(true);
   });
 
-  it('Should find the LocalPath path', () => {
+  it('Finds the `LocalPath` path', () => {
     const path = new LocalPath().append('how').append('about');
     const object = { how: { about: 'this' } };
     expect(has(object, path)).to.equal(true);
   });
 
-  it('Should not find non existent path', () => {
+  it('Does not find non existent path', () => {
     const object = { a: { b: 1 }, c: 5 };
     expect(has(object, 'b')).to.equal(false);
     expect(has(object, 'a.c')).to.equal(false);
@@ -62,7 +62,7 @@ describe('util/has', () => {
     expect(has(object, 'd')).to.equal(false);
   });
 
-  it('Should return false when object or path is invalid', () => {
+  it('Returns `false` when object or path is invalid', () => {
     expect(has(null, '')).to.equal(false);
     expect(has(NaN, Date.now())).to.equal(false);
     expect(has('', 'c.b')).to.equal(false);

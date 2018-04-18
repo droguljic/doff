@@ -7,7 +7,7 @@ const LocalPath = require('../../lib/util/LocalPath');
 // Describe test cases
 
 describe('util/LocalPath', () => {
-  it('Should create a local path', () => {
+  it('Creates a local path', () => {
     const path = new LocalPath();
     expect(path).to.be.an('localpath');
     expect(path).to.have.own.property('asString').and.to.be.an('string');
@@ -15,7 +15,7 @@ describe('util/LocalPath', () => {
     expect(path).to.have.property('isEmpty').and.to.be.an('function');
   });
 
-  it('Should identify a valid local path', () => {
+  it('Identifies a valid local path', () => {
     expect(LocalPath.isInstance(new LocalPath())).to.equal(true);
     expect(LocalPath.isInstance(undefined)).to.equal(false);
     expect(LocalPath.isInstance(null)).to.equal(false);
@@ -28,7 +28,7 @@ describe('util/LocalPath', () => {
     expect(LocalPath.isInstance({ asString: '', asArray: [] })).to.equal(false);
   });
 
-  it('Should identify a empty local path', () => {
+  it('Identifies a empty local path', () => {
     const path = new LocalPath();
     expect(path.isEmpty()).to.equal(true);
 
@@ -37,7 +37,7 @@ describe('util/LocalPath', () => {
     expect(path.isEmpty()).to.equal(false);
   });
 
-  it('Should use base, if appropriate', () => {
+  it('Uses base, if appropriate', () => {
     const base = new LocalPath();
     base.asString = 'foundation.is.the.key';
     base.asArray = ['foundation', 'is', 'the', 'key'];
@@ -62,7 +62,7 @@ describe('util/LocalPath', () => {
     expect(path.asArray).to.deep.equal(['foundation', 'is', 'the', 'key', 'to', 'a', 7, 'things']);
   });
 
-  it('Should append correctly', () => {
+  it('Appends correctly', () => {
     const it = Symbol('it');
     const path = new LocalPath();
     expect(

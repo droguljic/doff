@@ -24,7 +24,7 @@ const iterator = {
 // Describe test cases
 
 describe('util/isExplicitObject', () => {
-  it('Should identify objects', () => {
+  it('Identifies objects', () => {
     expect(isExplicitObject({})).to.equal(true);
     expect(isExplicitObject({ simple: 7 })).to.equal(true);
     expect(isExplicitObject(Object.create(null))).to.equal(true);
@@ -35,7 +35,7 @@ describe('util/isExplicitObject', () => {
     expect(isExplicitObject(new Instance())).to.equal(true);
   });
 
-  it('Should identify non objects', () => {
+  it('Identifies non objects', () => {
     expect(isExplicitObject(undefined)).to.equal(false);
     expect(isExplicitObject(null)).to.equal(false);
     expect(isExplicitObject(false)).to.equal(false);

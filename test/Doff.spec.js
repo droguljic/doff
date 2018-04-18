@@ -10,7 +10,7 @@ const Options = require('../lib/options');
 // Describe test cases
 
 describe('Doff', () => {
-  it('Should export the appropriate structure', () => {
+  it('Exports the appropriate structure', () => {
     expect(Doff).to.be.a('function');
     expect(Doff.prototype).to.have.own.property('getOptions').and.to.be.a('function');
     expect(Doff.prototype.getOptions.length).to.equal(0);
@@ -18,20 +18,20 @@ describe('Doff', () => {
     expect(Doff.prototype.aim.length).to.equal(1);
   });
 
-  it('Should create an instance without options and use defaults', () => {
+  it('Creates an instance without options and use defaults', () => {
     const doff = new Doff();
     expect(doff).to.have.own.property('options', undefined);
     expect(doff.getOptions()).to.equal(Options.Default);
   });
 
-  it('Should create an instance with provided options and use them', () => {
+  it('Creates an instance with provided options and use them', () => {
     const options = { mutate: true, depth: 7 };
     const doff = new Doff(options);
     expect(doff).to.have.own.property('options', options);
     expect(doff.getOptions()).to.equal(options);
   });
 
-  it('Should only use options provided to the aim when isolate option is true', () => {
+  it('Uses options provided to the `aim` when `isolate` option is `true`', () => {
     const resolveSpy = spy(Doff.__get__('Options'), 'resolve');
     new Doff().aim({}, { isolate: true });
     resolveSpy.restore();
@@ -39,7 +39,7 @@ describe('Doff', () => {
     expect(resolveSpy.args[0][0]).to.deep.equal({ isolate: true });
   });
 
-  it('Should process the target', () => {
+  it('Processes the target', () => {
     const object = {
       hey: 'do not remove this',
       but: { you: { can: { remove: { [Symbol('that')]: null } } } },
@@ -58,7 +58,7 @@ describe('Doff', () => {
     });
   });
 
-  it('Should accumulate the target when provided options are empty', () => {
+  it('Accumulates the target when provided options are empty', () => {
     const array = [
       17,
       false,
@@ -89,7 +89,7 @@ describe('Doff', () => {
     expect(output).to.deep.equal(array);
   });
 
-  it('Should respect the mutate option', () => {
+  it('Respects the `mutate` option', () => {
     const object = {
       one: { that: 'remains' },
       entries: [undefined, 19, 'something', true, null, 0, { good: 'one' }],
@@ -107,7 +107,7 @@ describe('Doff', () => {
     });
   });
 
-  it('Should respect the fallthrough option', () => {
+  it('Respects the `fallthrough` option', () => {
     const array = [{ simple: { as: {} } }];
     const wipe = spy();
     new Doff().aim(array, { fallthrough: true, preserve: { objects: true }, wipe });
@@ -117,7 +117,7 @@ describe('Doff', () => {
     expect(wipe.args[0][2]).to.equal(array);
   });
 
-  it('Should respect the reference option', () => {
+  it('Respects the `reference` option', () => {
     const object = {
       bye: { bye: null },
       not: { going: { anywhere: null } }

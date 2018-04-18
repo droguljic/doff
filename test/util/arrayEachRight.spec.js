@@ -7,7 +7,7 @@ const arrayEachRight = require('../../lib/util/arrayEachRight');
 // Describe test cases
 
 describe('util/arrayEachRight', () => {
-  it('Should iterate over array elements in reverse order', () => {
+  it('Iterates over array elements in reverse order', () => {
     const numbers = [1, 3, 5, 7, 9];
     const order = [];
     arrayEachRight(numbers, (value, index, array) => {
@@ -18,7 +18,7 @@ describe('util/arrayEachRight', () => {
     expect(order).to.deep.equal([4, 3, 2, 1, 0]);
   });
 
-  it('Should exit loop when iteratee returns false', () => {
+  it('Exits loop when iteratee returns false', () => {
     const numbers = [3, 9, 11];
     const accumulator = [];
     arrayEachRight(numbers, (value) => {

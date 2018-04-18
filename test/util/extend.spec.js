@@ -20,7 +20,7 @@ Point.prototype.ZERO = '0, 0';
 // Describe test cases
 
 describe('util/extend', () => {
-  it('Should extend target', () => {
+  it('Extends target', () => {
     const target = { key: 'value' };
     const context = new Point(47, 91);
     const output = extend(target, Point.prototype, context);

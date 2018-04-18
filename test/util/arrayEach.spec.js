@@ -7,7 +7,7 @@ const arrayEach = require('../../lib/util/arrayEach');
 // Describe test cases
 
 describe('util/arrayEach', () => {
-  it('Should iterate over array elements', () => {
+  it('Iterates over array elements', () => {
     const numbers = [1, 3, 5, 7, 9];
     const order = [];
     arrayEach(numbers, (value, index, array) => {
@@ -18,7 +18,7 @@ describe('util/arrayEach', () => {
     expect(order).to.deep.equal([0, 1, 2, 3, 4]);
   });
 
-  it('Should exit loop when iteratee returns false', () => {
+  it('Exits loop when iteratee returns false', () => {
     const numbers = [3, 9, 11];
     const accumulator = [];
     arrayEach(numbers, (value) => {

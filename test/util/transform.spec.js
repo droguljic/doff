@@ -86,7 +86,7 @@ const instance = new Footprint();
 // Describe test cases
 
 describe('util/transform', () => {
-  it('Should pass correct parameters into the iteratee in case of an array target', () => {
+  it('Passes correct parameters into the iteratee in case of an array target', () => {
     transform(array, (acc, val, idx, arr) => {
       expect(acc).to.be.an('array');
       expect(arr).to.equal(array);
@@ -94,13 +94,13 @@ describe('util/transform', () => {
     });
   });
 
-  it('Should call the iteratee for each element of an array target', () => {
+  it('Calls the iteratee for each element of an array target', () => {
     const indexes = [];
     transform(array, (acc, val, idx) => indexes.push(idx));
     expect(array).to.have.all.keys(indexes);
   });
 
-  it('Should pass correct parameters into the iteratee in case of an object target', () => {
+  it('Passes correct parameters into the iteratee in case of an object target', () => {
     transform(object, (acc, val, key, obj) => {
       expect(acc).to.be.an('object');
       expect(obj).to.equal(object);
@@ -114,7 +114,7 @@ describe('util/transform', () => {
     });
   });
 
-  it('Should call the iteratee for every own property of an object target', () => {
+  it('Calls the iteratee for every own property of an object target', () => {
     let keys = [];
     transform(object, (acc, val, key) => keys.push(key));
     expect(object).to.have.all.keys(keys);
@@ -124,7 +124,7 @@ describe('util/transform', () => {
     expect(instance).to.have.all.keys(keys);
   });
 
-  it('Should use a proper accumulator when the target is not mutated', () => {
+  it('Uses a proper accumulator when the target is not mutated', () => {
     const aAcummulator = transform(array, () => {});
     expect(aAcummulator).to.not.equal(array);
     expect(Object.getPrototypeOf(aAcummulator)).to.equal(Object.getPrototypeOf(array));
@@ -142,7 +142,7 @@ describe('util/transform', () => {
     expect(pAccumulator.constructor).to.equal(Object);
   });
 
-  it('Should return the target when mutate option is true', () => {
+  it('Returns the target when `mutate` option is `true`', () => {
     const aAcummulator = transform(array, () => {}, { mutate: true });
     expect(aAcummulator).to.equal(array);
 
@@ -153,19 +153,19 @@ describe('util/transform', () => {
     expect(iAcummulator).to.equal(instance);
   });
 
-  it('Should pass the target as an accumulator to the iteratee when mutate option is true', () => {
+  it('Passes the target as an accumulator to the iteratee when `mutate` option is `true`', () => {
     transform(array, (acc) => expect(acc).to.equal(array), { mutate: true });
     transform(object, (acc) => expect(acc).to.equal(object), { mutate: true });
     transform(instance, (acc) => expect(acc).to.equal(instance), { mutate: true });
   });
 
-  it('Should traverse the target array in reverse order when mutate option is true', () => {
+  it('Traverses the target array in reverse order when `mutate` option is `true`', () => {
     const indexes = [];
     transform(array, (acc, val, idx) => indexes.push(idx), { mutate: true });
     expect(indexes).to.deep.equal([7, 6, 5, 4, 3, 2, 1, 0]);
   });
 
-  it('Should include symbol properties when symbols option is true', () => {
+  it('Includes symbol properties when `symbols` option is `true`', () => {
     const symbolProperty = Symbol('property');
     const options = { symbols: true };
     const accumulator = transform(
@@ -177,7 +177,7 @@ describe('util/transform', () => {
   });
 
   describe('util/transform.deep', () => {
-    it('Should pass correct parameters into the iteratee in case of an array target', () => {
+    it('Passes correct parameters into the iteratee in case of an array target', () => {
       transform.deep(array, (acc, val, key, fgm, sta) => {
         expect(acc).to.be.a(type(fgm));
         expect(sta).to.be.an('object').and.to.have.all.keys(STATE_KEYS);
@@ -191,7 +191,7 @@ describe('util/transform', () => {
       });
     });
 
-    it('Should call the iteratee for each element of an array target recursively', () => {
+    it('Calls the iteratee for each element of an array target recursively', () => {
       const paths = [];
       transform.deep(array, (acc, val, idx, fgm, { path: pth }) => paths.push(pth));
       expect(paths.map((p) => p.asString)).to.deep.equal([
@@ -206,7 +206,7 @@ describe('util/transform', () => {
       ]);
     });
 
-    it('Should pass correct parameters into the iteratee in case of an object target', () => {
+    it('Passes correct parameters into the iteratee in case of an object target', () => {
       transform.deep(object, (acc, val, key, fgm, sta) => {
         expect(acc).to.be.a(type(fgm));
         expect(sta).to.be.an('object').and.to.have.all.keys(STATE_KEYS);
@@ -232,7 +232,7 @@ describe('util/transform', () => {
       });
     });
 
-    it('Should call the iteratee for every own property of an object taget recursively', () => {
+    it('Calls the iteratee for every own property of an object taget recursively', () => {
       let paths = [];
       transform.deep(object, (acc, val, idx, fgm, { path: pth }) => paths.push(pth));
       expect(paths.map((p) => p.asString)).to.deep.equal([
@@ -257,7 +257,7 @@ describe('util/transform', () => {
       ]);
     });
 
-    it('Should create the appropriate state object', () => {
+    it('Creates the appropriate state object', () => {
       const deep = spy();
       transform.__with__({ deep })(() => {
         const options = { symbols: true, depth: -1, preserve: undefined };
@@ -274,7 +274,7 @@ describe('util/transform', () => {
       });
     });
 
-    it('Should respect the depth option when provided', () => {
+    it('Respects the `depth` option when provided', () => {
       let paths = [];
       transform.deep(array, (acc, val, key, fgm, { path: pth }) => paths.push(pth), { depth: 1 });
       expect(paths.map((p) => p.asString)).to.deep.equal(['[0]', '[1]', '[2]', '[3]', '[4]', '[5]', '[6]', '[7]']);
@@ -322,7 +322,7 @@ describe('util/transform', () => {
       ]);
     });
 
-    it('Should use the preserve option when provided', () => {
+    it('Uses the `preserve` option when provided', () => {
       let options = { preserve: (value) => Array.isArray(value) };
       let paths = [];
       transform.deep(array, (acc, val, key, fgm, { path: pth, preserve: prs }) => paths.push(pth), options);
@@ -347,7 +347,7 @@ describe('util/transform', () => {
       expect(paths.map((p) => p.asString)).to.deep.equal(['instance']);
     });
 
-    it('Should denote preserved values', () => {
+    it('Denotes preserved values', () => {
       let options = { preserve: (value) => Array.isArray(value) };
       transform.deep(array, (acc, val, key, fgm, { preserved: prs }) => {
         expect(prs).to.equal(type(val) === 'Array');
@@ -370,7 +370,7 @@ describe('util/transform', () => {
       }, options);
     });
 
-    it('Should use the hasDepth option when provided', () => {
+    it('Uses the `hasDepth` option when provided', () => {
       const options = { hasDepth: () => false };
       const paths = [];
       transform.deep(array, (acc, val, key, fgm, { path: pth }) => paths.push(pth), options);

@@ -11,13 +11,13 @@ function Instance() {}
 // Describe test cases
 
 describe('util/isPlainObject', () => {
-  it('Should identify plain objects', () => {
+  it('Identifies plain objects', () => {
     expect(isPlainObject({})).to.equal(true);
     expect(isPlainObject({ simple: 7 })).to.equal(true);
     expect(isPlainObject(Object.create(null))).to.equal(true);
   });
 
-  it('Should identify non objects', () => {
+  it('Identifies non objects', () => {
     expect(isPlainObject(undefined)).to.equal(false);
     expect(isPlainObject(null)).to.equal(false);
     expect(isPlainObject(false)).to.equal(false);

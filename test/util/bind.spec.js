@@ -20,7 +20,7 @@ Bar.prototype.foo = function() {
 // Describe test cases
 
 describe('util/bind', () => {
-  it('Should bind context', () => {
+  it('Binds context', () => {
     const bar = new Bar(5, 9);
     const foo = bind(Bar.prototype.foo, bar);
     expect(foo()).to.equal(14);

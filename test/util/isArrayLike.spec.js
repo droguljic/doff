@@ -7,7 +7,7 @@ const isArrayLike = require('../../lib/util/isArrayLike');
 // Describe test cases
 
 describe('util/isArrayLike', () => {
-  it('Should identify array like values', () => {
+  it('Identifies array like values', () => {
     expect(isArrayLike([])).to.equal(true);
     expect(isArrayLike('')).to.equal(true);
     expect(isArrayLike(new Int8Array(7))).to.equal(true);
@@ -22,7 +22,7 @@ describe('util/isArrayLike', () => {
     expect(isArrayLike({ length: 17 })).to.equal(true);
   });
 
-  it('Should identify non array like values', () => {
+  it('Identifies non array like values', () => {
     expect(isArrayLike(undefined)).to.equal(false);
     expect(isArrayLike(null)).to.equal(false);
     expect(isArrayLike(3)).to.equal(false);

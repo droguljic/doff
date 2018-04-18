@@ -12,7 +12,7 @@ const symbolObject = { [Symbol('sym')]: 17 };
 // Describe test cases
 
 describe('options/Wipe', () => {
-  it('Should always return false in the case of skip', () => {
+  it('Returns `false` in the case of skip', () => {
     expect(Wipe.skip(undefined)).to.equal(false);
     expect(Wipe.skip(null)).to.equal(false);
     expect(Wipe.skip(NaN)).to.equal(false);
@@ -30,7 +30,7 @@ describe('options/Wipe', () => {
     expect(Wipe.skip(new RegExp('test'))).to.equal(false);
   });
 
-  it('Should resolve the string and boolean aliases', () => {
+  it('Resolves the string and boolean aliases', () => {
     expect(Wipe.resolve('falsy.relaxed')).to.equal(Wipe.falsy.relaxed);
     expect(Wipe.resolve('falsy.strict')).to.equal(Wipe.falsy.strict);
     expect(Wipe.resolve('empty.loose')).to.equal(Wipe.empty.loose);
@@ -40,12 +40,12 @@ describe('options/Wipe', () => {
     expect(Wipe.resolve(true)).to.equal(Wipe.empty.strict);
   });
 
-  it('Should resolve the function with itself', () => {
+  it('Resolves the function with itself', () => {
     const arrow = () => {};
     expect(Wipe.resolve(arrow)).to.equal(arrow);
   });
 
-  it('Should resolve the array with function calling includes on the array', () => {
+  it('Resolves the array with function calling includes on the array', () => {
     const array = ['how', 17];
     const wipe = Wipe.resolve(array);
     expect(wipe).to.be.a('function').and.to.have.a.property('length', 1);
@@ -56,7 +56,7 @@ describe('options/Wipe', () => {
     expect(wipe([])).to.equal(false);
   });
 
-  it('Should resolve unsupported values and types with the skip', () => {
+  it('Resolves unsupported values and types with the skip', () => {
     expect(Wipe.resolve(undefined)).to.equal(Wipe.skip);
     expect(Wipe.resolve(null)).to.equal(Wipe.skip);
     expect(Wipe.resolve(NaN)).to.equal(Wipe.skip);
@@ -68,7 +68,7 @@ describe('options/Wipe', () => {
   });
 
   describe('options/Wipe.falsy', () => {
-    it('Should work in relaxed mode', () => {
+    it('Works in relaxed mode', () => {
       expect(Wipe.falsy.relaxed(undefined)).to.equal(true);
       expect(Wipe.falsy.relaxed(null)).to.equal(true);
       expect(Wipe.falsy.relaxed(NaN)).to.equal(true);
@@ -86,7 +86,7 @@ describe('options/Wipe', () => {
       expect(Wipe.falsy.relaxed(new RegExp('test'))).to.equal(false);
     });
 
-    it('Should work in strict mode', () => {
+    it('Works in strict mode', () => {
       expect(Wipe.falsy.strict(undefined)).to.equal(true);
       expect(Wipe.falsy.strict(null)).to.equal(true);
       expect(Wipe.falsy.strict(NaN)).to.equal(true);
@@ -106,7 +106,7 @@ describe('options/Wipe', () => {
   });
 
   describe('options/Wipe.empty', () => {
-    it('Should work in loose mode', () => {
+    it('Works in loose mode', () => {
       expect(Wipe.empty.loose(undefined)).to.equal(true);
       expect(Wipe.empty.loose(null)).to.equal(true);
       expect(Wipe.empty.loose(NaN)).to.equal(true);
@@ -128,7 +128,7 @@ describe('options/Wipe', () => {
       expect(Wipe.empty.loose(new RegExp('test'))).to.equal(false);
     });
 
-    it('Should work in relaxed mode', () => {
+    it('Works in relaxed mode', () => {
       expect(Wipe.empty.relaxed(undefined)).to.equal(true);
       expect(Wipe.empty.relaxed(null)).to.equal(true);
       expect(Wipe.empty.relaxed(NaN)).to.equal(true);
@@ -150,7 +150,7 @@ describe('options/Wipe', () => {
       expect(Wipe.empty.relaxed(new RegExp('test'))).to.equal(true);
     });
 
-    it('Should work in strict mode', () => {
+    it('Works in strict mode', () => {
       expect(Wipe.empty.strict(undefined)).to.equal(true);
       expect(Wipe.empty.strict(null)).to.equal(true);
       expect(Wipe.empty.strict(NaN)).to.equal(true);

@@ -31,7 +31,7 @@ describe('options/Default', () => {
     Default.use({ isolate: false, symbols: false, reference: undefined, blur: { paths: undefined } });
   });
 
-  it('Should have appropriate properties with corresponding values', () => {
+  it('Has appropriate properties with corresponding values', () => {
     expect(Default).to.have.all.keys(DEFAULT_KEYS);
     expect(Default).to.have.own.property('isolate', false);
     expect(Default).to.have.own.property('mutate', false);
@@ -53,7 +53,7 @@ describe('options/Default', () => {
     expect(Default).to.have.deep.own.property('use').and.to.be.a('function');
   });
 
-  it('Should override default with use', () => {
+  it('Overrides default with use', () => {
     Default.use({ isolate: true, symbols: true, reference: {}, blur: { paths: 'which.one' } });
     expect(Default).to.have.own.property('isolate', true);
     expect(Default).to.have.own.property('mutate', false);
@@ -75,7 +75,7 @@ describe('options/Default', () => {
     expect(Default).to.have.deep.own.property('use').and.to.be.a('function');
   });
 
-  it('Should ignore invalid override', () => {
+  it('Ignores invalid override', () => {
     Default.use(undefined);
     Default.use(null);
     Default.use(false);

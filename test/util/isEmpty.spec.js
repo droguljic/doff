@@ -7,7 +7,7 @@ const isEmpty = require('../../lib/util/isEmpty');
 // Describe test cases
 
 describe('util/isEmpty', () => {
-  it('Should identify empty values', () => {
+  it('Identifies empty values', () => {
     expect(isEmpty(undefined)).to.equal(true);
     expect(isEmpty(null)).to.equal(true);
     expect(isEmpty('')).to.equal(true);
@@ -31,7 +31,7 @@ describe('util/isEmpty', () => {
     expect(isEmpty(/test-this/)).to.equal(true);
   });
 
-  it('Should identify non empty values', () => {
+  it('Identifies non empty values', () => {
     expect(isEmpty(false)).to.equal(false);
     expect(isEmpty(7)).to.equal(false);
     expect(isEmpty('how')).to.equal(false);
@@ -52,7 +52,7 @@ describe('util/isEmpty', () => {
     expect(isEmpty(() => {})).to.equal(false);
   });
 
-  it('Should respect options', () => {
+  it('Respects options', () => {
     const stringObject = Object.defineProperty({}, 'string', { value: 'value' });
     const symbolObject = Object.defineProperty({}, Symbol('symbol'), { value: 'value' });
 

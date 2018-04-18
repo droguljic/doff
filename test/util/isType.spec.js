@@ -11,7 +11,7 @@ function Something() {}
 // Describe test cases
 
 describe('util/isType', () => {
-  it('Should identify types', () => {
+  it('Identifies types', () => {
     expect(isType(new Map(), Set, '[object Map]')).to.equal(true);
     expect(isType([], Array)).to.equal(true);
     expect(isType(new Date(), Date)).to.equal(true);

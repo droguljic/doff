@@ -9,7 +9,7 @@ const Util = require('../lib/util');
 // Describe test cases
 
 describe('index', () => {
-  it('Should export the appropriate instance', () => {
+  it('Exports the appropriate instance', () => {
     expect(lib).to.be.a('function');
     expect(lib).to.have.own.property('getOptions').and.to.be.a('function');
     expect(lib.getOptions()).to.equal(Options.Default);
@@ -19,7 +19,7 @@ describe('index', () => {
     expect(lib).to.have.own.property('create').and.to.be.a('function');
   });
 
-  it('Should override default properties and return the instance', () => {
+  it('Overrides default properties and return the instance', () => {
     const options = { symbols: true, reference: { how: { about: 'now' } } };
     const finalOptions = Util.merge.with({ atomic: { keys: ['reference'] } }).exec({}, Options.Default, options);
     const instance = lib.use(options);
@@ -29,7 +29,7 @@ describe('index', () => {
     lib.use({ symbols: false, reference: undefined }); // Restore the default options
   });
 
-  it('Should create a custom instance', () => {
+  it('Creates a custom instance', () => {
     const options = { mutate: true, wipe: () => true };
     const instance = lib.create(options);
     const finalOptions = Util.merge({}, Options.Default, options);
@@ -42,7 +42,7 @@ describe('index', () => {
     expect(instance).to.not.have.own.property('create').and.to.be.a('function');
   });
 
-  it('Should create a custom instance with isolated options', () => {
+  it('Creates a custom instance with isolated options', () => {
     const options = { isolate: true, wipe: null, blur: () => '???????????' };
     const instance = lib.create(options);
     expect(instance).to.be.a('function');

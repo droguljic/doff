@@ -8,7 +8,7 @@ const toLocalPath = require('../../lib/util/toLocalPath');
 // Describe test cases
 
 describe('util/toLocalPath', () => {
-  it('Should resolve fraction without base', () => {
+  it('Resolves fraction without base', () => {
     let path = toLocalPath('first');
     expect(path.asString).to.equal('first');
     expect(path.asArray).to.deep.equal(['first']);
@@ -23,7 +23,7 @@ describe('util/toLocalPath', () => {
     expect(path.asArray).to.deep.equal([3]);
   });
 
-  it('Should resolve fraction with base', () => {
+  it('Resolves fraction with base', () => {
     const firstBase = toLocalPath('first');
     const second = Symbol('second');
     const secondBase = toLocalPath(second, firstBase);
@@ -33,12 +33,12 @@ describe('util/toLocalPath', () => {
     expect(path.asArray).to.deep.equal(['first', second, 3]);
   });
 
-  it('Should resolve fraction that is a path by returning it', () => {
+  it('Resolves fraction that is a path by returning it', () => {
     const path = toLocalPath('super', new LocalPath().append('zero'));
     expect(toLocalPath(path)).to.equal(path);
   });
 
-  it('Should resolve unsupported fraction types as empty path', () => {
+  it('Resolves unsupported fraction types as empty path', () => {
     expect(toLocalPath().isEmpty()).to.equal(true);
     expect(toLocalPath(null).isEmpty()).to.equal(true);
     expect(toLocalPath(false).isEmpty()).to.equal(true);

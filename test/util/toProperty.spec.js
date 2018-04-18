@@ -14,7 +14,7 @@ const path = new LocalPath().append('yet').append('another').append('property');
 // Describe test cases
 
 describe('util/toProperty', () => {
-  it('Should convert value to property', () => {
+  it('Converts value to property', () => {
     expect(toProperty('one.nice.property')).to.equal('one.nice.property');
     expect(toProperty(symbol)).to.equal(symbol);
     expect(toProperty(7)).to.equal(7);

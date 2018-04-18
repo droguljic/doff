@@ -33,7 +33,7 @@ const options = {
 // Describe test cases
 
 describe('options/resolve', () => {
-  it('Should resolve options', () => {
+  it('Resolves options', () => {
     const instructions = resolve(options);
     expect(instructions).to.have.own.property('isolate', options.isolate);
     expect(instructions).to.have.own.property('original', options.original);
@@ -45,18 +45,18 @@ describe('options/resolve', () => {
     expect(instructions).to.have.own.property('blur').and.to.be.a('function');
   });
 
-  it('Should resolve missing wipe or blur using defaults', () => {
+  it('Resolves missing wipe or blur using defaults', () => {
     expect(resolve({ wipe: true })).to.have.keys('wipe', 'blur').and.to.have.own.property('blur', defaults.blur);
     const blur = { paths: 'blurry.thing', mask: '|||||||||' };
     expect(resolve({ blur })).to.have.keys('wipe', 'blur').and.to.have.own.property('wipe', defaults.wipe);
   });
 
-  it('Should resolve empty options using defaults', () => {
+  it('Resolves empty options using defaults', () => {
     expect(resolve({})).to.deep.equal(defaults);
     expect(resolve({ isolate: true })).to.deep.equal(Object.assign({ isolate: true }, defaults));
   });
 
-  it('Should resolve non-options using defaults', () => {
+  it('Resolves non-options using defaults', () => {
     expect(resolve(undefined)).to.equal(defaults);
     expect(resolve(null)).to.equal(defaults);
     expect(resolve(19)).to.equal(defaults);
